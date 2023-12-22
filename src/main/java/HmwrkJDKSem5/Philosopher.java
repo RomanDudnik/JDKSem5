@@ -27,6 +27,11 @@ public class Philosopher extends Thread {
             for(int i = 0; i < 3; i++) {
                 table.acquire(); // философ занимает стол
                 eat();  // философ ест
+                if (table.availablePermits() == 0) {     // проверяем, занят ли стол
+                    think();  // философ размышляет
+                }
+                table.acquire();  // повторная попытка занять стол
+                eat();  // философ ест
                 table.release();  // философ освобождает стол
                 think();  // философ размышляет
             }
