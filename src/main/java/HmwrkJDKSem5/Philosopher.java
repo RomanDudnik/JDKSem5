@@ -24,14 +24,14 @@ public class Philosopher extends Thread {
     @Override
     public void run() {
         try {
-            boolean isTableOccupied = false;
+            boolean isTableBusy = false;
             for (int i = 0; i < 3; i++) {
-                if (isTableOccupied) {
+                if (isTableBusy) {
                     think();
-                    isTableOccupied = table.tryAcquire();
+                    isTableBusy = table.tryAcquire();
                 } else {
                     table.acquire();
-                    isTableOccupied = true;
+                    isTableBusy = true;
                 }
                 eat();
                 table.release();
